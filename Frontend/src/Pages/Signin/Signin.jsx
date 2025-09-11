@@ -32,6 +32,7 @@ const Signin = () => {
         .then((res)=>{
             console.log(res);
              toast.success(res.data?.message);
+             localStorage.setItem("auth_token", res.data.token)
              navigate("/dashboard");
         }) .catch ((err) => {
             console.log(err);
