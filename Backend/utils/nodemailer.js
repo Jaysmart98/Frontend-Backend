@@ -104,7 +104,7 @@ const MailVerification = async(email, username, link) => {
                                 <a href="${link}" class="button" style="display: inline-block; padding: 12px 24px; background-color: #3b82f6; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: bold;">Verify Email</a>
                             </div>
 
-                            <p>Thank you!</p>
+                            <p>Thank you for signing up!</p>
                         </td>
                     </tr>
                     <!-- Footer -->
