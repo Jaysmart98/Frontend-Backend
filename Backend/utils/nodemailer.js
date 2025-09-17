@@ -122,7 +122,6 @@ const MailVerification = async(email, username, link) => {
     </table>
 </body>
 </html>
-
     `
 
    const transporter = await nodemailer.createTransport({
