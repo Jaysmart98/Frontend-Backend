@@ -1,7 +1,9 @@
-const userModel = require("../model/user.model")
+const {userModel} = require("../model/user.model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const MailVerification = require("../utils/nodemailer")
+const cloudinary = require("../utils/cloudinary")
+
 
 const userSignup = async (req, res) =>{
     try {
@@ -11,9 +13,13 @@ const userSignup = async (req, res) =>{
         if (!username || !email || !password) {
             return res.status(400).json({message:"All fields are mandatory", status:false})
         }
+
          let newuser
+
         const hashedPassword = await bcrypt.hash(password,10)
+
         const link = `http://localhost:8005/verify/email/${email}`
+        
        const mailsent =  await MailVerification(email, username, link)
           if (mailsent) {
             newuser = await userModel.create({
@@ -44,7 +50,9 @@ const userLogin = async (req, res) =>{
      if (!email ||  !password) {
        return res.status(400).json({message:"All fields are mandatory", status:false})
      }
+
     const existuser = await userModel.findOne({email})
+
     if (!existuser) {
      return res.status(400).json({message:"Invalid  email or password.", status:false}) 
     }
@@ -52,6 +60,10 @@ const userLogin = async (req, res) =>{
        if (!hashedPassword) {
          return res.status(400).json({message:"Invalid  email or password.", status:false})
        }
+      
+    if (!existuser.verified) {
+      return res.status(400).json({message:"email is not verified, check your email for verification email", status:false})
+    }
 
       const token =  await jwt.sign({email:existuser.email,id:existuser._id}, process.env.JWT_SECRETKEY,{expiresIn:300} )
       return res.status(200).json({message:"Login successful", status:true, token})
@@ -59,6 +71,7 @@ const userLogin = async (req, res) =>{
      return res.status(500).json({message:error.message, status:false})
    }
 }
+
 
 const verifytoken = async (req, res) =>{
     try {
@@ -80,6 +93,7 @@ const verifytoken = async (req, res) =>{
     }
 }
 
+
 const verifyemail = async(req, res) =>{
   try {
     const {email} = req.params
@@ -87,12 +101,32 @@ const verifyemail = async(req, res) =>{
     if(user){
       user.verified = true
       user.save()
-      return  res.render("It is a Prank Lmao (o,o)",{email})
+      return  res.render("verify",{email})
     }
+      return  res.render("verify",{email: ""})
   } catch (error) {
     console.log(error);
-    
+      return  res.render("verify",{email: ""})
   }
 }
 
-module.exports = {userSignup, userLogin, verifytoken, verifyemail}
+
+const UpdateProfile =  async (req, res) => {
+  try {
+    console.log(req.user);
+    
+    const {image} = req.body 
+    if (!image) {
+      return res.status(400).json({message:"Invalid image", status: false})
+    }
+    const uploaded =  await cloudinary.uploader.upload(image)
+    console.log(uploaded);
+    
+
+  } catch (error) {
+    return res.status(500).json({message: error.message, status: false})
+  }
+}
+
+
+module.exports = {userSignup, userLogin, verifytoken, verifyemail, UpdateProfile}
