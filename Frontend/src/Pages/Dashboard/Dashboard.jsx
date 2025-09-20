@@ -2,6 +2,8 @@ import axios from 'axios'
 import React from 'react'
 import { useEffect } from 'react'
 import { useNavigate, Router } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
+import './Dashboard.css'
 
 const Dashboard = () => {
 
@@ -28,7 +30,10 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Dashboard Page </h1>
+      <Navbar/>
+        <div className='container'>
+            
+        </div>
     </div>
   )
 }

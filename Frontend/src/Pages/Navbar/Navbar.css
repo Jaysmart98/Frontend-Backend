@@ -1,0 +1,42 @@
+/* #bodycontainer{
+    width: 100%;
+}
+
+#Header{
+   display: flex;
+   justify-items: space-between;
+   align-items: center;
+   padding: 20px;
+   border: 1px solid black;
+}
+
+.navbar-brand{
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    height: 35px;
+}
+
+#navbarSupportedContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* .navbar-nav{
+    margin-left: 450px;
+}
+
+.navbar-nav li{
+    margin-left: 35px;
+} */
+
+#signupBtn{
+    background-color: black;
+    color: #fff;
+}
+
+#signupBtn:hover{
+    background-color: #fff;
+    color: black;
+}

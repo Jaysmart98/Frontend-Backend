@@ -1,0 +1,48 @@
+#body{
+    width: 100%;
+    height: 1500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a{
+    color: #FA9A61;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+p{
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#body Input{
+    width: 100%;
+}
+
+#body Input:hover{
+    border: 1px solid blue;
+}
+
+
+#body Button{
+    width: 100%;
+    /* background-color: #000000; */
+    color: #FA9A61;
+    border-radius: none;
+    padding: 11px;
+}
+
+#body Button:hover{
+    border: 1px solid #FA9A61;
+}
+
+#createText{
+    margin-bottom: 10px;
+}

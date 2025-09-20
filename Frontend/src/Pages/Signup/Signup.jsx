@@ -4,6 +4,9 @@ import Button from '../../PrimaryComponents/Button/Button'
 import axios from 'axios'
 import {toast} from 'react-toastify'
 import { useNavigate, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import './Signup.css'
+
 
 const Signup = () => {
 
@@ -43,13 +46,20 @@ const Signup = () => {
 
 
   return (
-    <div>
+    <div id='body'>
       <div className='w-5 mx-auto py-3 px-5'>
-        <h1 className='text-center mt-3'>Sign up</h1>
-        <Input name={"username"} placeholder={"Enter a Username"} type={"text"} style={"form-control mt-3"} onChange={handleInputChange}/>
-        <Input name={"email"} placeholder={"Enter your Email"} type={"email"} style={"form-control mt-3"} onChange={handleInputChange}/>
-        <Input name={"password"} placeholder={"Create your Password"} type={"password"} style={"form-control mt-3"} onChange={handleInputChange}/>
-        <Button loading={loading} text={"Sign Up"} style={"btn btn-primary mt-3"} onClick={Register}/>
+        <h1 className='text-center mt-3'>Create an Account</h1>
+        <p className='text-center mt-3'>Already have an account?   <Link href="">Sign In</Link> </p>
+        <Input name={"username"} placeholder={"Enter Username"} type={"text"} style={"form-control mt-3"} onChange={handleInputChange} label={"Username"}/>
+        <Input name={"email"} placeholder={"Enter Email Address"} type={"email"} style={"form-control mt-3"} onChange={handleInputChange} label={"Email"}/>
+        <Input name={"password"} placeholder={"Enter Password"} type={"password"} style={"form-control mt-3"} onChange={handleInputChange} label={'Password'}/>
+        <Input name={"password"} placeholder={"Confirm Password"} type={"password"} style={"form-control mt-3"} onChange={handleInputChange} label={'Confirm Password'}/>
+        <Button loading={loading} text={"Create Account"} style={"btn btn-dark mt-2 mb-2"} onClick={Register}/>
+        <p>By creating account, you agree to our terms <Link href="">Terms of Service</Link> </p>
+        <hr />
+        <p id='createText'>Or create an account using</p>
+        <button id='GoogleBtn' className='btn btn-white mt-4 mb-2 border-dark'> Continue with Google</button>
+        <Button id="FacebookBTN" loading={loading} text={"Continue with Facebook"} style={"btn mt-4 mb-2 border-dark"} onClick={Register}/>
       </div>
     </div>
   )
