@@ -3,6 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
+import { increment, decrement } from "../../store/countSlice";
+import './Form.css'
+import { useSelector, useDispatch } from "react-redux";
 
 // Define rules with Yup
 const schema = yup.object().shape({
@@ -30,15 +33,16 @@ const Form = ()=> {
   });
 
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     console.log("Valid form data:", data);
   };
 
   return (
-    <>
+    <div id="body">
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <div id="container">
         <input {...register("email")} placeholder="Email" />
         <p style={{ color: "red" }}>{errors.email?.message}</p>
       </div>
@@ -63,7 +67,11 @@ const Form = ()=> {
       <button onClick={() => setOpen(!open)}>Toggle</button>
       {open && (<Modal isOpen={open} onClose={() => setOpen(false)}  title={"Welcome"} children={"Dashboard page"}  />)}
 
-    </>
+        {useSelector((state) => state.counter.value) }
+        <button onClick={() => dispatch(increment())}>Increase</button>
+        <button onClick={() => dispatch(decrement())}>Decrease</button>
+
+    </div>
   );
 
 }

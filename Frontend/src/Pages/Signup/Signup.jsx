@@ -59,7 +59,7 @@ const Signup = () => {
         <hr />
         <p id='createText'>Or create an account using</p>
         <button id='GoogleBtn' className='btn btn-white mt-4 mb-2 border-dark'> Continue with Google</button>
-        <Button id="FacebookBTN" loading={loading} text={"Continue with Facebook"} style={"btn mt-4 mb-2 border-dark"} onClick={Register}/>
+        <Button id="FacebookBTN" text={"Continue with Facebook"} style={"btn mt-4 mb-2 border-dark"} onClick={Register}/>
       </div>
     </div>
   )
