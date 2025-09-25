@@ -4,39 +4,39 @@ import './Navbar.css';
 const Navbar = () => {
   return (
     <div id='bodycontainer'>
-       <nav id='Header' class="navbar navbar-expand-lg bg-body-tertiary">
-         <div class="container-fluid" id='container-fluid'>
-          <a class="navbar-brand" href="#"><img src="https://res.cloudinary.com/dc4fx7sbe/image/upload/v1758216978/ViewPriceLogo_mkbzfe.png" alt=""/></a>
+       <nav id='Header' className="navbar navbar-expand-lg bg-body-tertiary">
+         <div className="container-fluid" id='container-fluid'>
+          <a className="navbar-brand" href="#"><img src="https://res.cloudinary.com/dc4fx7sbe/image/upload/v1758216978/ViewPriceLogo_mkbzfe.png" alt=""/></a>
            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span></button>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span></button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                <a className="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Account</a>
+                <li className="nav-item">
+                <a className="nav-link" href="#">Account</a>
                 </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Categories
                 </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"/></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="#">Action</a></li>
+                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                    <li><hr className="dropdown-divider"/></li>
+                    <li><a className="dropdown-item" href="#">Something else here</a></li>
                 </ul>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link active">Saved</a>
+                <li className="nav-item">
+                <a className="nav-link active">Saved</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <a class="navbar-brand" href="#"><img src="https://res.cloudinary.com/dc4fx7sbe/image/upload/v1758220955/cartLogo_g2v56p.png" alt="" /></a>
-                <button id='signupBtn' class="btn btn-outline-success" type="submit">Sign Up</button>
+            <form className="d-flex" role="search">
+                <a className="navbar-brand" href="#"><img src="https://res.cloudinary.com/dc4fx7sbe/image/upload/v1758220955/cartLogo_g2v56p.png" alt="" /></a>
+                <button id='signupBtn' className="btn btn-outline-success" type="submit">Sign Up</button>
             </form>
             </div>
         </div>

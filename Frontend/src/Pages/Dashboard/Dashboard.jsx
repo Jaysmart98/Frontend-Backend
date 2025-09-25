@@ -7,6 +7,8 @@ import Navbar from '../Navbar/Navbar';
 import './Dashboard.css'
 
 const Dashboard = () => {
+   const [image, setimage] = useState(null)
+    const [user, setUser] = useState (null)
 
   const navigate = useNavigate();
   const token = localStorage.getItem("auth_token")
@@ -26,13 +28,10 @@ const Dashboard = () => {
         navigate("/signin")
       }
     })
-    })
+    }, [])
 
 
-  // posting picture to backend (Blnd - handle posting to cloudinary)
-
-    const [image, setimage] = useState(null)
-    const [user, setUser] = useState (null)
+   
 
       const uploadPicture = (e) => {
         console.log(e.target.files[0]);
