@@ -3,6 +3,7 @@ const userrouter = express.Router();
 const {userSignup, userLogin, verifytoken, verifyemail, UpdateProfile} = require("../controller/user.controller");
 const Authtoken = require("../middleware/sessionservice")
 const validationSchema = require("../middleware/user.validation")
+const validateUser = require("../middleware/validator")
 
 
 

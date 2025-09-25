@@ -11,3 +11,5 @@ const validateUser = (schema) => async (req, res, next) => {
         return res.status(400).json({message:error.message, status:false})
     }
 }
+
+module.exports = validateUser
