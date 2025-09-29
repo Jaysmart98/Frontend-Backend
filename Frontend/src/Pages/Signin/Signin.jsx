@@ -30,7 +30,7 @@ const Signin = () => {
     const Login = () => {
       setloading(true)
 
-        axios.post("http://localhost:8005/login", userdetail)
+        axios.post("https://pe-backend-liard.vercel.app/login", userdetail)
         .then((res)=>{
             console.log(res);
              toast.success(res.data?.message);

@@ -14,7 +14,7 @@ const Dashboard = () => {
   const token = localStorage.getItem("auth_token")
 
   useEffect (() =>{
-    axios.get("http://localhost:8005/verify", {
+    axios.get("https://pe-backend-liard.vercel.app/verify", {
       headers:{
         "Authorization": `bearer ${token}`
       }
@@ -45,7 +45,7 @@ const Dashboard = () => {
     }
 
      const uploadImage = () => {
-      axios.patch("http://localhost:8005/upload/profile", {image}, {
+      axios.patch("https://pe-backend-liard.vercel.app/upload/profile", {image}, {
         headers:{
           "Authorization": `bearer ${token}`
         }
