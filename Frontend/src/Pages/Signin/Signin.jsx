@@ -45,16 +45,13 @@ const Signin = () => {
         })
         };
 
-        const GoToSignUp = () => {
-          navigate("/signup")
-        }
 
 
   return (
     <div id='body'>
         <div className='w-5 mx-auto py-3 px-5'> 
               <h1 className='text-center mt-3'>Login</h1>
-              <p className='text-center mt-3'>Don't have an account? <Link onClick={GoToSignUp} >Sign Up</Link> </p>
+              <p className='text-center mt-3'>Don't have an account? <Link href="https://pe-frontend-chi.vercel.app/signin">Sign Up</Link> </p>
                 <Input name={"email"} placeholder={"Enter your Email"} type={"email"} style={"form-control mt-3"} onChange={handleInputChange}/>
                 <Input name={"password"} placeholder={"Enter your Password"} type={"password"} style={"form-control mt-3"} onChange={handleInputChange} label={"Password"}/>
                 <Button loading={loading} text={"Login"} style={"btn btn-primary mt-3"} onClick={Login}/> <br />
