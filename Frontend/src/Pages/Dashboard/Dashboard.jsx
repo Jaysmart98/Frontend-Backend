@@ -1,34 +1,8 @@
-import axios from 'axios'
-import React from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react';
-import { useNavigate, Router } from 'react-router-dom';
+import React, { useState} from 'react';
 
+// --- Icon Components (Replacing Lucide Icons with Inline SVG) ---
 
 const Dashboard = (props) => (
-  
-  const navigate = useNavigate();
-  const token = localStorage.getItem("auth_token")
-
-  useEffect (() =>{
-    axios.get("http://localhost:8005/verify", {
-      headers:{
-        "Authorization": `bearer ${token}`
-      }
-    }) .then((res)=>{
-      console.log(res)
-    }) .catch ((err) => {
-      console.log(err);
-      const errormessage = err.response.data.message
-      if(errormessage == "jwt expired") {
-        localStorage.removeItem("auth_token")
-        navigate("/signin")
-      }
-    })
-    }, [])
-
-
-
     <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="9" rx="1" ry="1"></rect>
         <rect x="14" y="3" width="7" height="5" rx="1" ry="1"></rect>
@@ -180,7 +154,7 @@ const ActivityItem = ({ name, action, time, color }) => (
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     const navItems = [
-        { name: "Dashboard", Icon: LayoutDashboard, active: true },
+        { name: "Dashboard", Icon: Dashboard, active: true },
         { name: "Analytics", Icon: BarChart2, active: false },
         { name: "Projects", Icon: Layers, active: false },
         { name: "Settings", Icon: Settings, active: false },

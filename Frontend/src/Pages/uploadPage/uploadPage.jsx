@@ -6,7 +6,7 @@ import { useNavigate, Router } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './uploadPage.css'
 
-const Dashboard = () => {
+const Dash = () => {
    const [image, setimage] = useState(null)
     const [user, setUser] = useState (null)
 
@@ -83,4 +83,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Dash
