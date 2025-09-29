@@ -1,297 +1,178 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 
-// --- Icon Components (Replacing Lucide Icons with Inline SVG) ---
+// Using inline SVG icons to ensure functionality in isolated environments
+const Users = (props) => (<svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 01-3-3.87m-2-12a4 4 0 011 7.87"/></svg>);
+const DollarSign = (props) => (<svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>);
+const ListChecks = (props) => (<svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 11h4"/><path d="M12 17h4"/><path d="M12 7h4"/><path d="M3 5l2 2 4-4"/><path d="M3 12l2 2 4-4"/><path d="M3 19l2 2 4-4"/></svg>);
+const TrendingUp = (props) => (<svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>);
+const RefreshCw = (props) => (<svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 11-2.12-9.98L23 10"/></svg>);
 
-const Dashboard = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="9" rx="1" ry="1"></rect>
-        <rect x="14" y="3" width="7" height="5" rx="1" ry="1"></rect>
-        <rect x="14" y="12" width="7" height="9" rx="1" ry="1"></rect>
-        <rect x="3" y="16" width="7" height="5" rx="1" ry="1"></rect>
-    </svg>
-);
 
-const BarChart2 = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="18" y1="20" x2="18" y2="10"></line>
-        <line x1="12" y1="20" x2="12" y2="4"></line>
-        <line x1="6" y1="20" x2="6" y2="14"></line>
-        <line x1="4" y1="20" x2="20" y2="20"></line>
-    </svg>
-);
-
-const Layers = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 1.6l8.8 4.7-8.8 4.7L3.2 6.3 12 1.6z"></path>
-        <path d="M21 12l-9 4.8-9-4.8"></path>
-        <path d="M21 17l-9 4.8-9-4.8"></path>
-    </svg>
-);
-
-const Settings = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12.22 2h-.44a2 2 0 00-2 2v.44a2 2 0 01-1.11 1.78l-.34.17a2 2 0 00-.81 2.37l.08.34a2 2 0 01-.6 1.76l-.17.16a2 2 0 00-2.37.8l-.34.17a2 2 0 01-2 2v.44a2 2 0 012 2v.44a2 2 0 002 2l.34.17a2 2 0 01.81 2.37l-.08.34a2 2 0 00.6 1.76l.17.16a2 2 0 012.37.8l.34.17a2 2 0 002 2h.44a2 2 0 002-2v-.44a2 2 0 011.11-1.78l.34-.17a2 2 0 00.81-2.37l-.08-.34a2 2 0 01.6-1.76l.17-.16a2 2 0 002.37-.8l.34-.17a2 2 0 012-2v-.44a2 2 0 01-2-2v-.44a2 2 0 00-2-2l-.34-.17a2 2 0 01-.81-2.37l.08-.34a2 2 0 00-.6-1.76l-.17-.16a2 2 0 01-2.37-.8l-.34-.17a2 2 0 00-2-2z"></path>
-        <circle cx="12" cy="12" r="3"></circle>
-    </svg>
-);
-
-const LogOut = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path>
-        <polyline points="16 17 21 12 16 7"></polyline>
-        <line x1="21" y1="12" x2="9" y2="12"></line>
-    </svg>
-);
-
-const TrendingUp = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-        <polyline points="17 6 23 6 23 12"></polyline>
-    </svg>
-);
-
-const Zap = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-    </svg>
-);
-
-const CheckCircle = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-    </svg>
-);
-
-const AlertTriangle = (props) => (
-    <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path>
-        <line x1="12" y1="9" x2="12" y2="13"></line>
-        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-    </svg>
-);
-
-// --- Static Data ---
-const statCardsData = [
-    {
-        title: "Total Revenue",
-        value: "$45,231",
-        trend: "+12.5%",
-        trendText: "vs. last month",
-        trendColor: "text-secondary",
-        borderColor: "border-primary",
-        Icon: TrendingUp,
-    },
-    {
-        title: "New Users",
-        value: "2,450",
-        trend: "+7.1%",
-        trendText: "vs. last week",
-        trendColor: "text-primary",
-        borderColor: "border-secondary",
-        Icon: Zap,
-    },
-    {
-        title: "Tasks Completed",
-        value: "92",
-        trend: "98% On Time",
-        trendText: "",
-        trendColor: "text-green-500",
-        borderColor: "border-yellow-500",
-        Icon: CheckCircle,
-    },
-    {
-        title: "Server Health",
-        value: "99.9%",
-        trend: "1 Minor Alert",
-        trendText: "",
-        trendColor: "text-red-500",
-        borderColor: "border-red-500",
-        Icon: AlertTriangle,
-    },
-];
-
-const activityFeedData = [
-    { name: "John", action: "added a new feature request.", time: "2 minutes ago", color: 'bg-secondary' },
-    { name: "Data", action: "export to CSV completed.", time: "1 hour ago", color: 'bg-primary' },
-    { name: "Marketing", action: "campaign launched.", time: "5 hours ago", color: 'bg-yellow-500' },
-    { name: "Jane", action: "updated project documentation.", time: "1 day ago", color: 'bg-indigo-400' },
-];
-
-// --- Reusable Components ---
-
-const StatCard = ({ title, value, trend, trendText, trendColor, borderColor }) => (
-    <div className={`bg-white p-6 rounded-xl shadow-lg border-t-4 ${borderColor} hover:shadow-xl transition duration-300`}>
-        <p className="text-sm font-medium text-gray-500">{title}</p>
-        <p className="text-3xl font-extrabold text-gray-900 mt-1">{value}</p>
-        <div className="flex items-center mt-3 text-sm">
-            <span className={`${trendColor} font-semibold flex items-center`}>
-                <Icon className="w-4 h-4 mr-1" />
-                {trend}
-            </span>
-            {trendText && <span className="ml-2 text-gray-500">{trendText}</span>}
-        </div>
-    </div>
-);
-
-const ActivityItem = ({ name, action, time, color }) => (
-    <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg transition duration-150 hover:bg-gray-100">
-        {/* User Avatar Placeholder */}
-        <img 
-            src={`https://placehold.co/32x32/${color.replace('bg-', '')}/ffffff?text=${name.charAt(0)}`}
-            alt={name}
-            className="w-8 h-8 rounded-full object-cover"
-            onError={(e) => { e.target.onerror = null; e.target.src=`https://placehold.co/32x32/10b981/ffffff?text=${name.charAt(0)}`; }}
-        />
-        <div>
-            <p className="text-sm font-medium text-gray-800">
-                <span className="font-bold">{name}</span> {action}
-            </p>
-            <p className="text-xs text-gray-500">{time}</p>
-        </div>
-    </div>
-);
-
-const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
-    const navItems = [
-        { name: "Dashboard", Icon: Dashboard, active: true },
-        { name: "Analytics", Icon: BarChart2, active: false },
-        { name: "Projects", Icon: Layers, active: false },
-        { name: "Settings", Icon: Settings, active: false },
-    ];
-
-    return (
-        <aside
-            className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition duration-300 ease-in-out w-64 bg-white shadow-xl z-40 flex flex-col p-4 space-y-6`}
-        >
-            {/* App Logo */}
-            <div className="flex items-center space-x-2 py-2">
-                <LayoutDashboard className="w-8 h-8 text-primary" />
-                <h1 className="text-2xl font-extrabold text-gray-800">Project Atlas</h1>
-            </div>
-
-            {/* Navigation Links */}
-            <nav className="flex-grow">
-                {navItems.map((item) => (
-                    <a
-                        key={item.name}
-                        href="#"
-                        onClick={toggleSidebar} // Close sidebar on mobile click
-                        className={`flex items-center space-x-3 p-3 mt-2 rounded-xl font-semibold transition duration-150 ${
-                            item.active
-                                ? 'text-white bg-primary hover:bg-indigo-700'
-                                : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
-                        }`}
-                    >
-                        <item.Icon className="w-5 h-5" />
-                        <span>{item.name}</span>
-                    </a>
-                ))}
-            </nav>
-
-            {/* User Profile Footer */}
-            <div className="mt-auto pt-4 border-t border-gray-100">
-                <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-xl hover:bg-gray-100 cursor-pointer transition duration-150">
-                    <img 
-                        src="https://placehold.co/40x40/4f46e5/ffffff?text=J" 
-                        alt="User Avatar" 
-                        className="w-10 h-10 rounded-full object-cover shadow-md"
-                        onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/40x40/4f46e5/ffffff?text=J'; }}
-                    />
-                    <div className="text-left">
-                        <p className="text-sm font-semibold text-gray-800">Jane Doe</p>
-                        <p className="text-xs text-gray-500">Administrator</p>
-                    </div>
-                </div>
-                <button className="w-full mt-2 flex items-center justify-center space-x-2 py-2 text-sm text-gray-600 hover:text-red-500 transition duration-150">
-                    <LogOut className="w-4 h-4" />
-                    <span>Log Out</span>
-                </button>
-            </div>
-        </aside>
-    );
+// Define the structure for our data state
+const initialDashboardData = {
+  users: 0,
+  sales: 0,
+  tasks: 0,
+  revenue: 0,
 };
 
-// --- Main App Component ---
+// Mock function to simulate an API call
+const simulateDataFetch = () => {
+  return new Promise(resolve => {
+    // Simulate network delay and slightly randomized data for effect
+    setTimeout(() => {
+      resolve({
+        users: Math.floor(1500 + Math.random() * 100),
+        sales: Math.floor(40000 + Math.random() * 5000),
+        tasks: Math.floor(10 + Math.random() * 5),
+        revenue: (80000 + Math.random() * 10000).toFixed(2),
+      });
+    }, 1500); // 1.5 second delay
+  });
+};
 
+/**
+ * Dashboard Card Component
+ */
+const StatCard = ({ title, value, icon: Icon, colorClass }) => (
+  <div className="bg-white p-6 rounded-xl shadow-lg transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+    <div className="flex items-center justify-between">
+      <p className="text-sm font-medium text-gray-500">{title}</p>
+      <Icon className={`w-5 h-5 ${colorClass}`} />
+    </div>
+    <div className="mt-1 text-3xl font-bold text-gray-900">
+      {/* Format value based on context */}
+      {title.includes("Revenue") || title.includes("Sales") ? `$${Number(value).toLocaleString()}` : Number(value).toLocaleString()}
+    </div>
+  </div>
+);
+
+/**
+ * Main Application Component
+ */
 const App = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // State for the dashboard data (useState)
+  const [data, setData] = useState(initialDashboardData);
+  // State for the loading status (useState)
+  const [isLoading, setIsLoading] = useState(true);
+  // State for the last update time (useState)
+  const [lastUpdated, setLastUpdated] = useState(null);
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+  /**
+   * Function to fetch data.
+   */
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const fetchedData = await simulateDataFetch();
+      setData(fetchedData);
+      setLastUpdated(new Date().toLocaleTimeString());
+    } catch (error) {
+      console.error("Failed to fetch dashboard data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    // Define custom colors for Tailwind in this scope
-    // const primary = '#4f46e5'; 
-    // const secondary = '#10b981';
+  /**
+   * Effect hook to run fetchData once on component mount (useEffect)
+   */
+  useEffect(() => {
+    fetchData();
+  }, []); // Empty dependency array ensures this runs only once.
 
-    return (
-        <div className="bg-bg-light min-h-screen font-sans">
-            
-            {/* Mobile Sidebar Toggle Button */}
-            <button 
-                onClick={toggleSidebar}
-                className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-primary text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isSidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
-                </svg>
-            </button>
+  // Define the cards structure using the state data
+  const cards = [
+    {
+      title: 'Total Users',
+      value: data.users,
+      icon: Users,
+      colorClass: 'text-blue-600',
+    },
+    {
+      title: 'Total Revenue',
+      value: data.revenue,
+      icon: TrendingUp,
+      colorClass: 'text-green-600',
+    },
+    {
+      title: 'Monthly Sales',
+      value: data.sales,
+      icon: DollarSign,
+      colorClass: 'text-yellow-600',
+    },
+    {
+      title: 'Open Tasks',
+      value: data.tasks,
+      icon: ListChecks,
+      colorClass: 'text-red-600',
+    },
+  ];
 
-            {/* Sidebar Component */}
-            <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-            
-            {/* Overlay for Mobile */}
-            {isSidebarOpen && (
-                <div 
-                    className="fixed inset-0 bg-black opacity-30 z-30 lg:hidden" 
-                    onClick={toggleSidebar}
-                ></div>
-            )}
+  return (
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-8 font-sans">
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+        {`
+        /* Corrected CSS syntax for use within JSX */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+        `}
+      </style>
 
-            {/* Main Content Area */}
-            <main className="lg:ml-64 p-4 md:p-8 transition-all duration-300 ease-in-out">
-                
-                {/* Header Section */}
-                <header className="mb-8 pt-10 lg:pt-0">
-                    <h1 className="text-4xl font-extrabold text-gray-900 leading-tight">Welcome Back, Jane!</h1>
-                    <p className="text-gray-500 mt-1">Here's your latest data and insights.</p>
-                </header>
-
-                {/* Stats Cards (Grid Layout) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                    {statCardsData.map((card, index) => (
-                        <StatCard key={index} {...card} />
-                    ))}
-                </div>
-
-                {/* Main Content Grid (Charts and Recent Activity) */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
-                    {/* Column 1 & 2: Main Visualization/Chart Area */}
-                    <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-4">Sales Performance (Last 6 Months)</h2>
-                        {/* Placeholder for a Chart/Graph */}
-                        <div className="h-80 bg-gray-100 rounded-lg flex items-center justify-center border border-dashed border-gray-300">
-                            <p className="text-gray-500 p-4 text-center">
-                                Chart Visualization Placeholder. In a real app, this would render a library like **Recharts** or **D3.js**.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Column 3: Recent Activity Feed */}
-                    <div className="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h2>
-                        <div className="space-y-3">
-                            {activityFeedData.map((activity, index) => (
-                                <ActivityItem key={index} {...activity} />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </main>
+      <header className="mb-8">
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
+          Analytics Dashboard
+        </h1>
+        <div className="flex justify-between items-center flex-wrap gap-2">
+          <p className="text-sm text-gray-600">
+            {isLoading ? 'Loading data...' : `Data last updated: ${lastUpdated}`}
+          </p>
+          <button
+            onClick={fetchData}
+            disabled={isLoading}
+            className={`flex items-center px-4 py-2 text-sm font-semibold rounded-lg transition duration-300 shadow-md
+              ${isLoading
+                ? 'bg-gray-400 text-gray-700 cursor-not-allowed'
+                : 'bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800'
+              }`}
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+            {isLoading ? 'Refreshing...' : 'Refresh Data'}
+          </button>
         </div>
-    );
+      </header>
+
+      {/* Main Content: Responsive Grid of Cards */}
+      <main>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {cards.map((card, index) => (
+            <StatCard
+              key={index}
+              title={card.title}
+              value={card.value}
+              icon={card.icon}
+              colorClass={card.colorClass}
+            />
+          ))}
+        </div>
+
+        {/* Placeholder for additional content */}
+        <div className="mt-8 bg-white p-6 rounded-xl shadow-lg min-h-[300px]">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Detailed Reports</h2>
+          <p className="text-gray-600">
+            This area is reserved for charts or tables. The current data is managed by **useState** and updated by **useEffect** to simulate a real-time application.
+          </p>
+        </div>
+      </main>
+
+      <footer className="mt-8 text-center text-sm text-gray-500">
+        Dashboard Demo created with React Hooks (useState & useEffect)
+      </footer>
+    </div>
+  );
 };
 
-export default Dashboard;
+export default App;
