@@ -44,12 +44,16 @@ const Signup = () => {
         })
     }
 
+    const GoToSignIn = () => {
+      navigate("/signin")
+    }
+
 
   return (
     <div id='body'>
       <div className='w-5 mx-auto py-3 px-5'>
         <h1 className='text-center mt-3'>Create an Account</h1>
-        <p className='text-center mt-3'>Already have an account?   <Link href="https://pe-backend-liard.vercel.app/login">Sign In</Link> </p>
+        <p className='text-center mt-3'>Already have an account?   <Link onClick={GoToSignIn}>Sign In</Link> </p>
         <Input name={"username"} placeholder={"Enter Username"} type={"text"} style={"form-control mt-3"} onChange={handleInputChange} label={"Username"}/>
         <Input name={"email"} placeholder={"Enter Email Address"} type={"email"} style={"form-control mt-3"} onChange={handleInputChange} label={"Email"}/>
         <Input name={"password"} placeholder={"Enter Password"} type={"password"} style={"form-control mt-3"} onChange={handleInputChange} label={'Password'}/>
