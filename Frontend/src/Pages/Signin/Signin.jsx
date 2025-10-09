@@ -7,17 +7,38 @@ import { useNavigate, Router } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import './Signin.css'
 
+import GoogleSignInButton from '../../PrimaryComponents/GoogleSignInButton/GoogleSignInButton.jsx';
+
 
 const Signin = () => {
 
    const navigate = useNavigate();
 
-   const [loading, setloading] = useState(false)
+  const [userStatus, setUserStatus] = useState('Signed Out');
+  const [token, setToken] = useState(null);
 
+   const [loading, setloading] = useState(false)
      const [userdetail, setUserdetail] = useState({
             email: "",
             password: ""
         })
+
+        const handleSignInSuccess = async (idToken) => {
+          setToken(idToken);
+          setUserStatus('Pending backend verification...');
+          try {
+            const response = await axios.post('/api/auth/google', { token : idToken });
+            if (response.data.success) {
+              setUserStatus(`Signed In as: ${response.data.userName}`);
+              toast.success('Google Sign In successful!');
+              navigate('/dashboard');
+            }
+          } catch (error) {
+            console.error('Authentication failed:', error);
+            setUserStatus('Sign In Failed');
+          }
+        };
+
 
      const handleInputChange = (e) => {
         console.log(e.target.value, e.target.name);
@@ -51,6 +72,9 @@ const Signin = () => {
     <div id='body'>
         <div className='w-5 mx-auto py-3 px-5'> 
               <h1 className='text-center mt-3'>Login</h1>
+
+               <p>Current Status: **{userStatus}**</p>
+
               <p className='text-center mt-3'>Don't have an account? <a href="https://pe-frontend-chi.vercel.app/signup">Sign Up</a> </p>
                 <Input name={"email"} placeholder={"Enter your Email"} type={"email"} style={"form-control mt-3"} onChange={handleInputChange}/>
                 <Input name={"password"} placeholder={"Enter your Password"} type={"password"} style={"form-control mt-3"} onChange={handleInputChange} label={"Password"}/>
@@ -59,7 +83,10 @@ const Signin = () => {
                 <hr />
                 
                 <p id='createText'>Or sign in using:</p>
-                <button id='GoogleBtn' className='btn btn-white mt-4 mb-2 border-dark'> Continue with Google</button>
+                {/* <button id='GoogleBtn' className='btn btn-white mt-4 mb-2 border-dark'> Continue with Google</button> */}
+                <GoogleSignInButton onSignInSuccess={handleSignInSuccess}/>
+                <p style={{ marginTop: '20px' }}> </p>
+
                 <Button id="FacebookBTN" text={"Continue with Facebook"} style={"btn mt-4 mb-2 border-dark"}/>
               </div>
     </div>

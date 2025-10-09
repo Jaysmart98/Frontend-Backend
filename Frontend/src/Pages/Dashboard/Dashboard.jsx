@@ -24,8 +24,6 @@ const Dashboard = () => {
           <div className='mt-2'>
             <p className='text-3xl font-bold'>567</p>
             <p className='text-gray-600'>Total Transactions</p>
-            <div><Footer>
-              </Footer></div>
           </div>
         </div>
       </div>
