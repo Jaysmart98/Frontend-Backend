@@ -12,10 +12,10 @@ import GoogleSignInButton from '../../PrimaryComponents/GoogleSignInButton/Googl
 
 const Signin = () => {
 
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [userStatus, setUserStatus] = useState('Signed Out');
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(null);  
 
    const [loading, setloading] = useState(false)
      const [userdetail, setUserdetail] = useState({
