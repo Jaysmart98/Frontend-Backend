@@ -29,7 +29,7 @@ const Signup = () => {
     fetch('/api/auth/google', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: idToken }),
+        body: JSON.stringify({ idToken: idToken }),
     })
     .then(res => res.json())
     .then(data => {
