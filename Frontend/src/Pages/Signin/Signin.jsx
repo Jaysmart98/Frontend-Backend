@@ -27,7 +27,7 @@ const Signin = () => {
           setToken(idToken);
           setUserStatus('Pending backend verification...');
           try {
-            const response = await axios.post('/api/auth/google', { token : idToken });
+            const response = await axios.post('/api/auth/google', { idToken : token });
             if (response.data.success) {
               setUserStatus(`Signed In as: ${response.data.userName}`);
               toast.success('Google Sign In successful!');

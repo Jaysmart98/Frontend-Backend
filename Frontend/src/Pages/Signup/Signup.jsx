@@ -13,7 +13,7 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-    const [token, setToken] = useState(null);
+    // const [token, setToken] = useState(null);
 
   const [loading, setloading] = useState(false)
 
